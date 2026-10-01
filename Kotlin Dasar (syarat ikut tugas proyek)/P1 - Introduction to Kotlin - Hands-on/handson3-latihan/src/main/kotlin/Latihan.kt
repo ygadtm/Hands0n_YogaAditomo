@@ -4,7 +4,7 @@
 //
 // CATATAN: File ini belum bisa dijalankan (belum bisa di-compile) sampai kamu
 // melengkapi semua TODO di bawah — itu normal untuk latihan ini!
-
+package latihan
 class ScoreBoard(private val skorMentah: List<Int?>) {
     // TODO: Buat property `skorValid` bertipe List<Int> berisi skorMentah
     // tanpa elemen null. Gunakan fungsi filterNotNull().

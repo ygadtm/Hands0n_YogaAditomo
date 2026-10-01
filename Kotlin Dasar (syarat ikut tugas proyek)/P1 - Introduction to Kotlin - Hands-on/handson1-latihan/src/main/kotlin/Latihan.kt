@@ -2,7 +2,7 @@
 // Tugas: Lengkapi fungsi describeProfile() agar mencetak deskripsi profil
 // menggunakan string template, default parameter, dan penanganan nilai
 // nullable dengan safe call (?.) dan elvis operator (?:).
-
+package latihan
 fun describeProfile(nama: String, umur: Int?, kota: String = "Tidak diketahui"): String {
     // TODO 1: Buat val bernama umurText yang berisi:
     //   - "<umur> tahun" jika umur tidak null

@@ -9,7 +9,7 @@
 //   70-79  -> "C"
 //   60-69  -> "D"
 //   selain itu -> "E"
-
+package latihan
 fun gradeOf(nilai: Int): String {
     // TODO: Ganti baris TODO() di bawah ini menjadi single-expression function:
     //   fun gradeOf(nilai: Int): String = when (nilai) {
