@@ -1,13 +1,13 @@
 // Hands-on 2: Grouping & Aggregation
 // Tugas: Dari daftar transaksi, hitung total nominal per kategori.
 // Konsep: groupBy, sumOf, associateBy, Map
-
 data class Transaksi(val id: String, val kategori: String, val nominal: Int)
-
 fun totalPerKategori(transaksi: List<Transaksi>): Map<String, Int> {
+    return transaksi
     // TODO 1: Kelompokkan (groupBy) transaksi berdasarkan kategori
+    .groupBy { it.kategori }
     // TODO 2: Untuk setiap grup, jumlahkan (sumOf) nominal-nya
-    // Hasil akhir: Map<kategori, totalNominal>
+    .mapValues { (_, daftar) -> daftar.sumOf { it.nominal } }
 
     return emptyMap()
 }
@@ -15,6 +15,7 @@ fun totalPerKategori(transaksi: List<Transaksi>): Map<String, Int> {
 fun transaksiById(transaksi: List<Transaksi>): Map<String, Transaksi> {
     // TODO 3: Buat Map dari List, dengan `id` transaksi sebagai key,
     //         menggunakan associateBy (agar bisa lookup transaksi via ID)
+    return transaksi.associateBy { it.id }
 
     return emptyMap()
 }
