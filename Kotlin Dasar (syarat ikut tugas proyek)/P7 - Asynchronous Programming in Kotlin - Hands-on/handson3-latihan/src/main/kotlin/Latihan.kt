@@ -19,16 +19,23 @@ class DownloadManager(private val scope: CoroutineScope) {
         //         Kembalikan Job dari launch tersebut.
         // val job = ???
         // return job
+        val job = scope.launch {
+            delay(durationMs)
+            println("$name selesai di-download")
+        }
+        return job
     }
 }
 
 fun main() = runBlocking {
     // TODO 2: Buat sebuah Job induk (parent) baru dengan Job()
     // val parentJob = ???
+    val parentJob = Job()
 
     // TODO 3: Buat CoroutineScope baru dari parentJob tersebut
     //         (gunakan CoroutineScope(parentJob))
     // val scope = ???
+    val scope = CoroutineScope(parentJob)
 
     val manager = DownloadManager(scope)
 
@@ -36,11 +43,12 @@ fun main() = runBlocking {
     manager.downloadFile("video.mp4", 3000)
     manager.downloadFile("dokumen.pdf", 1500)
 
-    delay(1200) // Beri waktu foto.jpg dan dokumen.pdf selesai
+    delay(1700) // Beri waktu foto.jpg dan dokumen.pdf selesai
 
     println("Membatalkan sisa download...")
     // TODO 4: Batalkan parentJob dengan cancel() — video.mp4 (durasi 3000ms)
     //         seharusnya TIDAK sempat mencetak "selesai di-download".
+    parentJob.cancel()
 
     delay(2000) // Tunggu untuk membuktikan video.mp4 memang tidak selesai
     println("Selesai.")

@@ -5,15 +5,14 @@ import kotlinx.coroutines.*
 // panggilan ke server untuk mengecek status pesanan (delay 2 detik),
 // lalu panggil dari dalam coroutine sehingga main thread TIDAK ter-blok
 // selama menunggu.
-//
 // Ingat: "One cannot just walk into a suspending function" — suspend fun
 // hanya boleh dipanggil dari coroutine (launch/runBlocking/async) atau
 // dari suspend fun lain.
-
 suspend fun checkOrderStatus(orderId: String): String {
     // TODO 1: Simulasikan network delay 2000ms dengan delay()
+    delay(2000)
     // TODO 2: Kembalikan String "Order $orderId: SHIPPED"
-    TODO("Lengkapi checkOrderStatus")
+    return "Order $orderId: SHIPPED"
 }
 
 fun main() = runBlocking {
@@ -25,5 +24,6 @@ fun main() = runBlocking {
 
     println("Menunggu status pesanan...")
 
-    // Kode kamu di sini...
+    val status = checkOrderStatus("A100")
+    println(status)
 }
