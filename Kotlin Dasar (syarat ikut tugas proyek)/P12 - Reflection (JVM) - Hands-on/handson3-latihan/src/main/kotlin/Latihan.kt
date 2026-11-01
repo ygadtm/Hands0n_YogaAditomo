@@ -1,19 +1,20 @@
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.jvm.javaField
 
 // Hands-on 3: Custom Annotation + Reflection Validator
 // Tugas: Buat annotation class @Required, lalu fungsi validate(obj) yang
 // mengecek semua property beranotasi @Required tidak boleh null atau
 // String kosong/blank. Kembalikan daftar NAMA FIELD yang gagal validasi.
-//
 // CATATAN: File ini SENGAJA belum bisa di-compile sampai kamu melengkapi
 // semua TODO di bawah — itu normal untuk latihan ini!
 
-// TODO 1: Buat annotation class bernama Required.
-//         Jangan lupa @Target(AnnotationTarget.FIELD) dan
-//         @Retention(AnnotationRetention.RUNTIME) — tanpa RUNTIME,
-//         annotation tidak akan terbaca saat reflection!
-// annotation class Required
+// TODO 1: Buat annotation class bernama Required. Jangan lupa @Target(AnnotationTarget.FIELD) dan
+//         @Retention(AnnotationRetention.RUNTIME) — tanpa RUNTIME, annotation tidak akan terbaca saat reflection!
+
+@Target(AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Required
 
 data class RegistrasiForm(
     @Required val nama: String,
@@ -31,8 +32,17 @@ fun validate(obj: Any): List<String> {
     // TODO 4: Jika beranotasi @Required, ambil nilainya dengan property.getter.call(obj)
     // TODO 5: Jika nilai null ATAU (String dan blank), tambahkan property.name ke `gagal`
 
-    // Kode kamu di sini...
+    for (property in obj::class.memberProperties) {
+        val wajib = property.javaField?. getAnnotation(Required::class.java) != null
 
+        if (wajib) {
+            val value = property.getter.call(obj)
+
+            if (value == null || (value is String && value.isBlank())) {
+                gagal.add(property.name)
+            }
+        }
+    }
     return gagal
 }
 
