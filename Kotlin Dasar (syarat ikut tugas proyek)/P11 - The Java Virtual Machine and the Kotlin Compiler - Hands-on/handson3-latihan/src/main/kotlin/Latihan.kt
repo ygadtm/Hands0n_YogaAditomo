@@ -1,23 +1,8 @@
 // Hands-on 3: companion object & @JvmStatic
-//
-// Konteks: Secara default, fungsi di dalam `companion object` dikompilasi
-// menjadi method INSTANCE pada sebuah inner class bernama Companion, BUKAN
-// method static sungguhan di level JVM bytecode. Ini menyulitkan interop
-// dengan Java/reflection Java biasa (java.lang.Class), yang mengharapkan
-// method static ada langsung di kelas utama.
-//
-// Anotasi `@JvmStatic` memberi tahu Kotlin compiler backend untuk
-// menghasilkan method static TAMBAHAN langsung di kelas utama (bukan hanya
-// di Companion), sehingga bisa dipanggil dari Java seperti method static
-// biasa.
-//
-// CATATAN: file ini SENGAJA tidak akan menunjukkan hasil yang benar sebelum
-// TODO dilengkapi — bagian dari latihan ini adalah membuktikan sendiri lewat
-// reflection java.lang.Class.
-
 class Greeter {
     companion object {
         // TODO 1: Tambahkan anotasi @JvmStatic pada fungsi ini
+        @JvmStatic
         fun greet(name: String): String {
             return "Halo, $name!"
         }
